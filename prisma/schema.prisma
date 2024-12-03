@@ -4,7 +4,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("SUPABASE_DATABASE_URL")
+  url      = env("NEXT_PUBLIC_SUPABASE_URL")
+  directUrl = env("NEXT_PUBLIC_SUPABASE_URL")
 }
 
 model Admin {
