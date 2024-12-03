@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/DataTable";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/setting";
-import { currentUserId, role } from "@/lib/authUtilis";
+import { getAuth } from "@/lib/authUtilis";
 import { Prisma } from "@prisma/client";
 import { examsColumns } from "./Columns";
 import { ExamForm } from "@/components/Forms/ExamForm";
@@ -11,6 +11,8 @@ const LessonListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
+  const { currentUserId, role } = await getAuth();
+
   const { page, ...queryParmas } = await searchParams;
   const p = page ? parseInt(page) : 1;
   const query: Prisma.ExamWhereInput = {};

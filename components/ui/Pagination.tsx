@@ -1,6 +1,5 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Table } from "@tanstack/react-table";
 import { ITEM_PER_PAGE } from "@/lib/setting";
 import { useRouter } from "next/navigation";
 

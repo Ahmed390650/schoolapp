@@ -28,7 +28,7 @@ function Menu() {
             if (item.visible.includes(role)) {
               if (item.label === "Logout")
                 return (
-                  <SignOutButton>
+                  <SignOutButton key={item.label}>
                     <div
                       className="flex cursor-pointer justify-center items-center
                 gap-4 lg:justify-start text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSky

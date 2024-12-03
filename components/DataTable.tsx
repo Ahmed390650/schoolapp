@@ -33,7 +33,6 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { useUser } from "@clerk/nextjs";
-import { deleteTeacher } from "@/actions/actions";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
