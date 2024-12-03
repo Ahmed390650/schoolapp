@@ -32,19 +32,16 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
-
 import { useUser } from "@clerk/nextjs";
-
-import InputForm from "./FormModal";
-import SheetOpen from "./ui/SheetOpen";
-import { SheetClose, SheetFooter } from "./ui/sheet";
+import { deleteTeacher } from "@/actions/actions";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   count: number;
   page: number;
-  type: string;
+  type?: string;
   ReactTable?: TableOptions<TData>;
+  handleDelete?: (id: any) => void;
 }
 export function DataTable<TData, TValue>({
   columns,
@@ -53,6 +50,7 @@ export function DataTable<TData, TValue>({
   page,
   type,
   ReactTable,
+  handleDelete,
 }: DataTableProps<TData, TValue>) {
   const { user } = useUser();
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -61,6 +59,7 @@ export function DataTable<TData, TValue>({
   const actions: ColumnDef<TData> = {
     id: "actions",
     cell: ({ row, column, table }) => {
+      const id = row.id;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -124,7 +123,6 @@ export function DataTable<TData, TValue>({
       router.push(`${window.location.pathname}?${params}`);
     }
   };
-  const handleSave = () => {};
   return (
     <div>
       <div className="rounded-md border">
@@ -134,27 +132,6 @@ export function DataTable<TData, TValue>({
             onKeyDown={handleSearch}
             className="max-w-sm"
           />
-          <SheetOpen>
-            <div className="grid gap-4 py-4">
-              <InputForm
-                typeSchema={type}
-                columns={columns.map((col) => {
-                  return {
-                    name: col.header,
-                    description: col.header,
-                    placeholder: col.header,
-                  };
-                })}
-              />
-            </div>
-            <SheetFooter>
-              <SheetClose asChild>
-                <Button type="submit" onClick={handleSave}>
-                  Save
-                </Button>
-              </SheetClose>
-            </SheetFooter>
-          </SheetOpen>
         </div>
         <Table>
           <TableHeader>

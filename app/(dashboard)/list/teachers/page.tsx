@@ -1,45 +1,12 @@
 import { DataTable } from "@/components/DataTable";
+import { TeacherForm } from "@/components/Forms/teacherForm";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/setting";
 import { Prisma, Teacher } from "@prisma/client";
-import {
-  ColumnDef,
-  RowModel,
-  Table,
-  TableOptions,
-} from "@tanstack/react-table";
+import { TableOptions } from "@tanstack/react-table";
+import { teacherColumns } from "./columns";
+import { deleteTeacher } from "@/actions/actions";
 
-const columns: ColumnDef<Teacher>[] = [
-  {
-    accessorKey: "id",
-    header: "teacherId",
-  },
-  {
-    accessorKey: "name",
-    header: "name",
-  },
-  {
-    accessorKey: "email",
-    header: "email",
-  },
-  {
-    accessorKey: "phone",
-    header: "phone",
-    filterFn: "includesString",
-  },
-  {
-    accessorKey: "address",
-    header: "address",
-  },
-  {
-    accessorKey: "classes",
-    header: "classes",
-  },
-  {
-    accessorKey: "subjects",
-    header: "subjects",
-  },
-];
 export default async function Page({
   searchParams,
 }: {
@@ -99,11 +66,13 @@ export default async function Page({
   };
   return (
     <div className="container mx-auto py-10">
+      <TeacherForm columns={teacherColumns} />
       <DataTable
-        columns={columns}
+        columns={teacherColumns}
         data={data}
         count={count}
         page={p}
+        handleDelete={deleteTeacher}
         ReactTable={ReactTable}
       />
     </div>

@@ -1,41 +1,9 @@
 import { DataTable } from "@/components/DataTable";
-import { Input } from "@/components/ui/input";
-import { teachersData } from "@/lib/Data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/setting";
-import { Prisma, Parent } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
+import { Prisma } from "@prisma/client";
+import { parentsColumns } from "./Columns";
 
-export let columns: ColumnDef<Parent>[] = [
-  {
-    accessorKey: "id",
-    header: "studentId",
-  },
-  {
-    accessorKey: "name",
-    header: "name",
-  },
-  {
-    accessorKey: "email",
-    header: "email",
-  },
-  {
-    accessorKey: "phone",
-    header: "phone",
-  },
-  {
-    accessorKey: "address",
-    header: "address",
-  },
-  {
-    accessorKey: "sex",
-    header: "sex",
-  },
-  {
-    accessorKey: "bloodType",
-    header: "bloodType",
-  },
-];
 export default async function Page({
   searchParams,
 }: {
@@ -70,7 +38,7 @@ export default async function Page({
   const data: any = parent;
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} count={count} page={p} />
+      <DataTable columns={parentsColumns} data={data} count={count} page={p} />
     </div>
   );
 }

@@ -1,19 +1,10 @@
 import { DataTable } from "@/components/DataTable";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/setting";
-import { Prisma, Subject } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
+import { Prisma } from "@prisma/client";
+import { columnsSubjects } from "./columns";
+import SubjectForm from "@/components/Forms/subjectForm";
 
-export const columns: ColumnDef<Subject>[] = [
-  {
-    accessorKey: "id",
-    header: "id",
-  },
-  {
-    accessorKey: "name",
-    header: "name",
-  },
-];
 export default async function Page({
   searchParams,
 }: {
@@ -37,6 +28,10 @@ export default async function Page({
   const [teacher, count] = await prisma.$transaction([
     prisma.subject.findMany({
       where: query,
+      include: {
+        teachers: true,
+        lessons: true,
+      },
       take: ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (p - 1),
     }),
@@ -44,18 +39,11 @@ export default async function Page({
       where: query,
     }),
   ]);
-
   const data: any = teacher;
-
   return (
     <div className="container mx-auto py-10">
-      <DataTable
-        type="subject"
-        columns={columns}
-        data={data}
-        count={count}
-        page={p}
-      />
+      <SubjectForm columns={columnsSubjects} />
+      {/* <DataTable columns={columnsSubjects} data={data} count={count} page={p} /> */}
     </div>
   );
 }

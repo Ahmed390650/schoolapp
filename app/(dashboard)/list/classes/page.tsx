@@ -1,31 +1,8 @@
 import { DataTable } from "@/components/DataTable";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/setting";
-import { Class, Prisma } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
-
-const columns: ColumnDef<Class>[] = [
-  {
-    header: "Class Name",
-    accessorKey: "name",
-  },
-  {
-    header: "Capacity",
-    accessorKey: "capacity",
-  },
-  {
-    header: "Grade",
-    accessorKey: "grade",
-  },
-  {
-    header: "Supervisor",
-    accessorKey: "supervisor",
-  },
-  {
-    header: "Actions",
-    accessorKey: "action",
-  },
-];
+import { Prisma } from "@prisma/client";
+import { clasessColumns } from "./Columns";
 
 const ClassListPage = async ({
   searchParams,
@@ -68,7 +45,7 @@ const ClassListPage = async ({
   const data: any = teacher;
   return (
     <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
-      <DataTable columns={columns} data={data} count={count} page={p} />
+      <DataTable columns={clasessColumns} data={data} count={count} page={p} />
     </div>
   );
 };

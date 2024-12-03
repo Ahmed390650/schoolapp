@@ -1,32 +1,9 @@
 import { DataTable } from "@/components/DataTable";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/setting";
-import { currentUserId, role } from "@/lib/utilis";
-import { Assignment, Lesson, Prisma } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
-
-const columns: ColumnDef<Assignment>[] = [
-  {
-    header: "id",
-    accessorKey: "id",
-  },
-  {
-    header: "dueDate",
-    accessorKey: "dueDate",
-  },
-  {
-    header: "lessonId",
-    accessorKey: "lessonId",
-  },
-  {
-    header: "startDate",
-    accessorKey: "startDate",
-  },
-  {
-    header: "title",
-    accessorKey: "title",
-  },
-];
+import { currentUserId, role } from "@/lib/authUtilis";
+import { Prisma } from "@prisma/client";
+import { AssignmentsColumns } from "./Columns";
 
 const LessonListPage = async ({
   searchParams,
@@ -98,7 +75,12 @@ const LessonListPage = async ({
   const data: any = parent;
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} count={count} page={p} />
+      <DataTable
+        columns={AssignmentsColumns}
+        data={data}
+        count={count}
+        page={p}
+      />
     </div>
   );
 };

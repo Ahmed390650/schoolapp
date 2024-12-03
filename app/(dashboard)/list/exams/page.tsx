@@ -1,28 +1,10 @@
 import { DataTable } from "@/components/DataTable";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/setting";
-import { currentUserId, role } from "@/lib/utilis";
-import { Exam, Prisma } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
-
-const columns: ColumnDef<Exam>[] = [
-  {
-    header: "lessonId",
-    accessorKey: "lessonId",
-  },
-  {
-    header: "startTime",
-    accessorKey: "startTime",
-  },
-  {
-    header: "endTime",
-    accessorKey: "endTime",
-  },
-  {
-    header: "title",
-    accessorKey: "title",
-  },
-];
+import { currentUserId, role } from "@/lib/authUtilis";
+import { Prisma } from "@prisma/client";
+import { examsColumns } from "./Columns";
+import { ExamForm } from "@/components/Forms/ExamForm";
 
 const LessonListPage = async ({
   searchParams,
@@ -95,7 +77,8 @@ const LessonListPage = async ({
   const data: any = parent;
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} count={count} page={p} />
+      <ExamForm columns={examsColumns} />
+      <DataTable columns={examsColumns} data={data} count={count} page={p} />
     </div>
   );
 };

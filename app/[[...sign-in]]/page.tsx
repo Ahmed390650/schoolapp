@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import * as Clerk from "@clerk/elements/common";
 import * as SignIn from "@clerk/elements/sign-in";
 import { useUser } from "@clerk/nextjs";
@@ -9,12 +8,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function SignInPage() {
-  const { isLoaded, isSignedIn, user } = useUser();
-  const [Loading, setloading] = useState(false);
+  const { user } = useUser();
   const router = useRouter();
   useEffect(() => {
     if (user) {
-      setloading(false);
       router.push(`${user.publicMetadata.role}`);
     }
   }, [user, router]);
@@ -57,10 +54,16 @@ export default function SignInPage() {
           </div>
           <SignIn.Action
             submit
-            onSubmit={() => setloading(true)}
-            className="w-full rounded-md bg-zinc-950 px-3.5 py-1.5 text-center text-sm font-medium text-white shadow outline-none ring-1 ring-inset ring-zinc-950 hover:bg-zinc-800 focus-visible:outline-[1.5px] focus-visible:outline-offset-2 focus-visible:outline-zinc-950 active:text-white/70 flex items-center justify-center gap-2">
-            {Loading && <Loader2 className="animate-spin" />}
-            Sign In
+            className="w-full  rounded-md bg-zinc-950 px-3.5 py-1.5 text-center text-sm font-medium text-white shadow outline-none ring-1 ring-inset ring-zinc-950 hover:bg-zinc-800 focus-visible:outline-[1.5px] focus-visible:outline-offset-2 focus-visible:outline-zinc-950 active:text-white/70 flex items-center justify-center gap-2">
+            <Clerk.Loading>
+              {(isLoading) =>
+                isLoading ? (
+                  <Loader2 className="animate-spin w-5 h-5" />
+                ) : (
+                  "Sign In"
+                )
+              }
+            </Clerk.Loading>
           </SignIn.Action>
           <p className="text-center text-sm text-zinc-500">
             No account?{" "}

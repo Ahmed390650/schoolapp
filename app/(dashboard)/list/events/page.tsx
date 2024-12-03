@@ -1,31 +1,8 @@
 import { DataTable } from "@/components/DataTable";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/setting";
-import { Event, Prisma } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
-
-const columns: ColumnDef<Event>[] = [
-  {
-    header: "classId",
-    accessorKey: "classId",
-  },
-  {
-    header: "description",
-    accessorKey: "description",
-  },
-  {
-    header: "endTime",
-    accessorKey: "endTime",
-  },
-  {
-    header: "startTime",
-    accessorKey: "startTime",
-  },
-  {
-    header: "title",
-    accessorKey: "title",
-  },
-];
+import { Prisma } from "@prisma/client";
+import { eventsColumns } from "./Columns";
 
 const LessonListPage = async ({
   searchParams,
@@ -59,7 +36,7 @@ const LessonListPage = async ({
   const data: any = parent;
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} count={count} page={p} />
+      <DataTable columns={eventsColumns} data={data} count={count} page={p} />
     </div>
   );
 };

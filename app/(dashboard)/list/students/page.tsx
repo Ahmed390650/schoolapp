@@ -1,41 +1,10 @@
 import { DataTable } from "@/components/DataTable";
-import { Input } from "@/components/ui/input";
-import { teachersData } from "@/lib/Data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/setting";
-import { Prisma, Student } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
+import { Prisma } from "@prisma/client";
+import { studentColumns } from "./columns";
+import { StudnetForm } from "@/components/Forms/studentForm";
 
-export let columns: ColumnDef<Student>[] = [
-  {
-    accessorKey: "id",
-    header: "studentId",
-  },
-  {
-    accessorKey: "name",
-    header: "name",
-  },
-  {
-    accessorKey: "email",
-    header: "email",
-  },
-  {
-    accessorKey: "phone",
-    header: "phone",
-  },
-  {
-    accessorKey: "address",
-    header: "address",
-  },
-  {
-    accessorKey: "sex",
-    header: "sex",
-  },
-  {
-    accessorKey: "bloodType",
-    header: "bloodType",
-  },
-];
 export default async function Page({
   searchParams,
 }: {
@@ -76,7 +45,8 @@ export default async function Page({
   const data: any = student;
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} count={count} page={p} />
+      <StudnetForm columns={studentColumns} />
+      <DataTable columns={studentColumns} data={data} count={count} page={p} />
     </div>
   );
 }
