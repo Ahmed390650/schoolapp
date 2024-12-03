@@ -18,9 +18,9 @@ function Menu() {
             {i.title}
             {!user && (
               <div className="flex flex-col gap-2 mt-2">
-                <Skeleton className="h-[30px] w-[240px] rounded-xl" />
-                <Skeleton className="h-[30px] w-[240px] rounded-xl" />
-                <Skeleton className="h-[30px] w-[240px] rounded-xl" />
+                <Skeleton className="h-[30px]  w-[240px] hidden lg:flex rounded-xl" />
+                <Skeleton className="h-[30px]  w-[240px] hidden lg:flex rounded-xl" />
+                <Skeleton className="h-[30px]  w-[240px] hidden lg:flex rounded-xl" />
               </div>
             )}
           </span>
